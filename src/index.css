@@ -1,0 +1,628 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import "../styles/globals.css";
+
+/* ─────────────────────────────────────────
+   CRT Effects
+───────────────────────────────────────── */
+
+/* Rolling scan line */
+html::before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: -220px;
+  height: 220px;
+  background: linear-gradient(
+    transparent 0%,
+    rgba(255, 255, 220, 0.03) 35%,
+    rgba(255, 255, 220, 0.07) 50%,
+    rgba(255, 255, 220, 0.03) 65%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 9997;
+  animation: crt-roll 9s linear infinite;
+}
+
+/* Scanlines + RGB shadow mask + phosphor glow + vignette */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(20, 255, 80, 0.035) 0px,
+      rgba(20, 255, 80, 0.035) 2px,
+      rgba(0, 0, 0, 0.42) 2px,
+      rgba(0, 0, 0, 0.42) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 20,  0,   0.05) 0px,
+      rgba(255, 20,  0,   0.05) 1px,
+      rgba(0,   255, 40,  0.04) 1px,
+      rgba(0,   255, 40,  0.04) 2px,
+      rgba(10,  40,  255, 0.04) 2px,
+      rgba(10,  40,  255, 0.04) 3px,
+      transparent 3px,
+      transparent 4px
+    ),
+    radial-gradient(ellipse at 50% 50%, transparent 28%, rgba(0, 0, 0, 0.96) 100%);
+  pointer-events: none;
+  z-index: 9998;
+  animation: crt-flicker 4s infinite;
+}
+
+/* Film grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 280px 280px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes crt-roll {
+  0%   { top: -220px; }
+  100% { top: 100vh;  }
+}
+
+@keyframes crt-flicker {
+  0%,  17%, 21%, 24%, 51%, 56%, 100% { opacity: 1;    }
+  19%, 23%,       54%                 { opacity: 0.82; }
+  20%                                 { opacity: 0.96; }
+}
+
+/* ─────────────────────────────────────────
+   Scroll indicator
+───────────────────────────────────────── */
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  animation: scroll-bounce 2s ease-in-out infinite;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.scroll-arrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 3.5rem;
+  background-image: radial-gradient(circle, #ff6188 0%, #fc9867 50%, #ffd866 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  user-select: none;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0);     opacity: 1;   }
+  50%       { transform: translateX(-50%) translateY(10px); opacity: 0.5; }
+}
+
+/* ─────────────────────────────────────────
+   Slideshow / snap scroll
+───────────────────────────────────────── */
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.slides-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.slide {
+  scroll-snap-align: start;
+  height: 100vh;
+  flex-shrink: 0;
+}
+
+/* ── Slide nav dots (right edge) ── */
+.slide-nav {
+  position: fixed;
+  right: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9995;
+  pointer-events: none;
+}
+
+.slide-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(253, 249, 243, 0.25);
+  transition: background 0.25s ease, transform 0.25s ease;
+  pointer-events: auto;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.slide-dot.active {
+  background: #fc9867;
+  transform: scale(1.5);
+  box-shadow: 0 0 8px rgba(252, 152, 103, 0.7);
+}
+
+/* ─────────────────────────────────────────
+   Shared section layout
+───────────────────────────────────────── */
+
+.content-section {
+  position: relative;
+  z-index: 10;          /* stacks above the z-index 2 arcade entities */
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 5rem 2rem;
+  overflow-y: auto;
+}
+
+.content-inner {
+  width: 100%;
+  max-width: 640px;
+}
+
+.content-inner--wide {
+  max-width: 880px;
+}
+
+.section-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #fc9867;
+  opacity: 0.9;
+  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
+}
+
+/* ─────────────────────────────────────────
+   About
+───────────────────────────────────────── */
+
+.about-name {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 600;
+  color: #fdf9f3;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.about-bio {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(253, 249, 243, 0.78);
+  line-height: 1.9;
+  margin-bottom: 3rem;
+  max-width: 520px;
+}
+
+.about-links {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.about-link {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #fdf9f3;
+  text-decoration: none;
+  opacity: 0.82;
+  position: relative;
+  transition: opacity 0.2s ease;
+  letter-spacing: 0.04em;
+}
+
+.about-link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: radial-gradient(circle, #ff6188 0%, #fc9867 50%, #ffd866 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.about-link:hover { opacity: 1; }
+.about-link:hover::after { transform: scaleX(1); }
+
+/* ─────────────────────────────────────────
+   Experience
+───────────────────────────────────────── */
+
+.exp-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.exp-item {
+  padding: 1.75rem 0;
+  border-top: 1px solid rgba(253, 249, 243, 0.07);
+}
+
+.exp-item:last-child {
+  border-bottom: 1px solid rgba(253, 249, 243, 0.07);
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.exp-company {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fdf9f3;
+  letter-spacing: 0.02em;
+}
+
+.exp-dates {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(253, 249, 243, 0.58);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.exp-note {
+  color: #fc9867;
+  opacity: 1;
+}
+
+.exp-role {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: rgba(253, 249, 243, 0.68);
+  margin: 0 0 0.45rem;
+}
+
+.exp-desc {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(253, 249, 243, 0.52);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────
+   Projects
+───────────────────────────────────────── */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  border: 1px solid rgba(253, 249, 243, 0.07);
+}
+
+.project-card {
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  border: 1px solid rgba(253, 249, 243, 0.07);
+  margin: -1px;
+  transition: background 0.2s ease;
+}
+
+.project-card:hover {
+  background: rgba(253, 249, 243, 0.025);
+}
+
+.project-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.project-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fdf9f3;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.project-desc {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(253, 249, 243, 0.68);
+  line-height: 1.75;
+  margin: 0;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.project-tag {
+  font-size: 0.71rem;
+  font-weight: 500;
+  color: rgba(253, 249, 243, 0.55);
+  border: 1px solid rgba(253, 249, 243, 0.18);
+  padding: 0.15rem 0.45rem;
+  letter-spacing: 0.03em;
+}
+
+.project-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.project-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.project-downloads {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(253, 249, 243, 0.58);
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+
+.project-downloads-label {
+  color: rgba(253, 249, 243, 0.4);
+}
+
+.project-link {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #fdf9f3;
+  text-decoration: none;
+  opacity: 0.72;
+  position: relative;
+  transition: opacity 0.2s ease;
+  letter-spacing: 0.03em;
+}
+
+.project-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: radial-gradient(circle, #ff6188 0%, #fc9867 50%, #ffd866 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.project-link:hover { opacity: 1; }
+.project-link:hover::after { transform: scaleX(1); }
+
+@media (max-width: 600px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .content-section {
+    padding: 4rem 1.5rem;
+    align-items: flex-start;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   ARCADE OVERLAY
+═══════════════════════════════════════════ */
+
+/* ── Curved glass screen effect ──
+   Heavy corner darkening mimics the convex CRT tube.
+   The top-center glare simulates overhead light hitting curved glass.
+   z-index 10001 sits above every other overlay so the corners
+   always bleed into pure black regardless of what's behind them. */
+.screen-glass {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10001;
+  background:
+    /* Top-centre glass glare */
+    radial-gradient(ellipse 60% 22% at 50% 0%,  rgba(180, 220, 255, 0.10) 0%, transparent 100%),
+    /* Left-edge highlight */
+    linear-gradient(90deg,  rgba(255,255,255,0.03) 0%, transparent 6%),
+    /* Right-edge highlight */
+    linear-gradient(-90deg, rgba(255,255,255,0.03) 0%, transparent 6%),
+    /* Corner barrel-curve darkness */
+    radial-gradient(circle at   0%   0%, rgba(0,0,0,0.92) 0%, transparent 30%),
+    radial-gradient(circle at 100%   0%, rgba(0,0,0,0.92) 0%, transparent 30%),
+    radial-gradient(circle at   0% 100%, rgba(0,0,0,0.92) 0%, transparent 30%),
+    radial-gradient(circle at 100% 100%, rgba(0,0,0,0.92) 0%, transparent 30%),
+    /* Top/bottom bezel shadows */
+    linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 9%),
+    linear-gradient(to top,    rgba(0,0,0,0.55) 0%, transparent 7%);
+  /* Screen-depth inner glow */
+  box-shadow:
+    inset 0 0 180px rgba(0, 0, 0, 0.30),
+    inset 0 0   4px rgba(255,255,255,0.035);
+}
+
+/* ── Arcade HUD bar ── */
+.arcade-hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 14px 3rem 20px;
+  font-family: 'Press Start 2P', monospace;
+  pointer-events: none;
+  z-index: 9993;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, transparent 100%);
+}
+
+.arcade-hud-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.arcade-label {
+  font-size: 7px;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.06em;
+}
+
+.arcade-value {
+  font-size: 10px;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+
+/* ── Corner decorations ── */
+.screen-corners {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9993;
+}
+
+.corner {
+  position: absolute;
+  opacity: 0.22;
+}
+
+.corner-tl { top: 44px;  left:  18px; }
+.corner-tr { top: 44px;  right: 18px; }
+.corner-bl { bottom: 18px; left:  18px; }
+.corner-br { bottom: 18px; right: 18px; }
+
+/* ── INSERT COIN ── */
+.arcade-coin {
+  position: fixed;
+  bottom: 0.9rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #FFD700;
+  z-index: 9993;
+  pointer-events: none;
+  white-space: nowrap;
+  margin: 0;
+  text-shadow: 0 0 14px rgba(255, 215, 0, 0.65);
+  transition: opacity 0.05s step-end;
+}
+
+/* ── PLAYER 1 ── */
+.arcade-player {
+  position: fixed;
+  bottom: 2.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: rgba(255, 255, 255, 0.3);
+  z-index: 9993;
+  pointer-events: none;
+  white-space: nowrap;
+  margin: 0;
+  letter-spacing: 0.1em;
+}
+
+/* ── Scattered pac-dots ── */
+.pac-dots-field {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9992;
+}
+
+.pac-dot {
+  position: absolute;
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FFD700;
+  opacity: 0;
+  animation: dot-pulse 4s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 0;    transform: scale(0.5); }
+  50%       { opacity: 0.38; transform: scale(1);   }
+}
+
+/* ── Wandering entities — live behind all content ── */
+.arcade-entity {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 2;           /* well below content (z-index 10) and CRT (9997+) */
+  will-change: transform;
+  opacity: 0.22;
+}
+
+.pac-entity {
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+}
+
+/* ── Pac-Man chomping jaws ── */
+.pac-upper {
+  transform-origin: 10px 10px;
+  animation: jaw-open  0.22s ease-in-out infinite alternate;
+}
+
+.pac-lower {
+  transform-origin: 10px 10px;
+  animation: jaw-close 0.22s ease-in-out infinite alternate;
+}
+
+@keyframes jaw-open  {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(-30deg); }
+}
+
+@keyframes jaw-close {
+  from { transform: rotate(0deg);  }
+  to   { transform: rotate(30deg); }
+}
