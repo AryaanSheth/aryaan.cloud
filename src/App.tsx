@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./index.css";
 import ASCIIText from "./components/ASCIIText";
 import ArcadeOverlay from "./components/ArcadeOverlay";
+import EasterEggs from "./components/EasterEggs";
 
 const experiences = [
   {
@@ -37,6 +38,7 @@ const experiences = [
 const projects = [
   {
     name: "PromptLint",
+    isNew: true,
     description: "ESLint for LLM prompts -- reduce costs and improve reliability",
     tech: ["Typescript", "Python", "CI/CD", "LLM"],
     live: "https://promptlint.dev",
@@ -45,6 +47,7 @@ const projects = [
   },
   {
     name: "gloq",
+    isNew: true,
     description: "Gleam wrapper for interfacing with GroqCloud LLM API ",
     tech: ["Gleam", "LLM", "Erlang VM"],
     live: "https://hex.pm/packages/gloq",
@@ -135,6 +138,7 @@ export function App() {
   return (
     <>
       <ArcadeOverlay />
+      <EasterEggs />
       <SlideDots active={activeSlide} containerRef={containerRef} />
 
       <div className="slides-container" ref={containerRef}>
@@ -193,7 +197,12 @@ export function App() {
               {projects.map((proj, i) => (
                 <div key={i} className="project-card">
                   <div className="project-card-body">
-                    <h3 className="project-name">{proj.name}</h3>
+                    <h3 className="project-name">
+                      {proj.name}
+                      {"isNew" in proj && proj.isNew && (
+                        <span className="new-badge">NEW!</span>
+                      )}
+                    </h3>
                     <p className="project-desc">{proj.description}</p>
                     <div className="project-tech">
                       {proj.tech.map((t) => (

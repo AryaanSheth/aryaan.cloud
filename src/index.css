@@ -356,6 +356,25 @@ html, body {
   color: #fdf9f3;
   margin: 0;
   letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.new-badge {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 5px;
+  color: #ff6188;
+  border: 1px solid #ff6188;
+  padding: 2px 4px;
+  letter-spacing: 0.05em;
+  animation: new-blink 0.7s step-end infinite;
+  flex-shrink: 0;
+}
+
+@keyframes new-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
 
 .project-desc {
