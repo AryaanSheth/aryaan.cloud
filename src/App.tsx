@@ -39,7 +39,7 @@ const projects = [
   {
     name: "PromptLint",
     isNew: true,
-    description: "ESLint for LLM prompts -- reduce costs and improve reliability",
+    description: "ESLint for LLM prompts - reduce costs and improve reliability",
     tech: ["Typescript", "Python", "CI/CD", "LLM"],
     live: "https://promptlint.dev",
     github: "https://github.com/AryaanSheth/promptlint",
