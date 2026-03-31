@@ -94,6 +94,15 @@ function SlideDots({ active, containerRef }: { active: number; containerRef: Rea
 export function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 600px)");
+    const sync = () => setIsMobile(media.matches);
+    sync();
+    media.addEventListener("change", sync);
+    return () => media.removeEventListener("change", sync);
+  }, []);
 
   // Track active slide via scroll position
   useEffect(() => {
@@ -143,8 +152,14 @@ export function App() {
 
       <div className="slides-container" ref={containerRef}>
         {/* ── Slide 1: Hero ── */}
-        <div className="slide" style={{ position: "relative", width: "100vw", height: "100vh" }}>
-          <ASCIIText text="Hey" enableWaves asciiFontSize={8} />
+        <div className="slide hero-slide">
+          <ASCIIText
+            text="Hey"
+            enableWaves
+            asciiFontSize={isMobile ? 6 : 8}
+            textFontSize={isMobile ? 132 : 200}
+            planeBaseHeight={isMobile ? 5.8 : 8}
+          />
           <button className="scroll-indicator" onClick={goNext} aria-label="Next slide">
             <span className="scroll-arrow">↓</span>
           </button>
