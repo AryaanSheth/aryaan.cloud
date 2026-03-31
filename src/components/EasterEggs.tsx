@@ -21,7 +21,6 @@ export default function EasterEggs() {
   const [trick,   setTrick]   = useState<{ text: string; x: number; y: number; id: number } | null>(null);
   const [konami,  setKonami]  = useState(false);
   const [visits,  setVisits]  = useState(0);
-  const [aimOpen, setAimOpen] = useState(false);
 
   const konamiSeq  = useRef<string[]>([]);
   const rafRef     = useRef<number>(0);
@@ -33,12 +32,6 @@ export default function EasterEggs() {
     const n = parseInt(localStorage.getItem('_vc') || '0') + 1;
     localStorage.setItem('_vc', String(n));
     setVisits(n);
-  }, []);
-
-  /* AIM popup — appears after ~10 seconds */
-  useEffect(() => {
-    const t = setTimeout(() => setAimOpen(true), 10000);
-    return () => clearTimeout(t);
   }, []);
 
   /* pixel cursor trail — canvas, zero React re-renders */
@@ -125,35 +118,6 @@ export default function EasterEggs() {
       <div className="y2k-marquee" aria-hidden>
         <span className="y2k-marquee-track">{MARQUEE_TEXT}</span>
       </div>
-
-      {/* ── AIM away-message popup ── */}
-      {aimOpen && (
-        <div className="aim-window">
-          <div className="aim-titlebar">
-            <span className="aim-titlebar-text">💬 Instant Message</span>
-            <button className="aim-x" onClick={() => setAimOpen(false)} aria-label="Close">✕</button>
-          </div>
-          <div className="aim-screenname">sk8r_aryaan</div>
-          <div className="aim-chat">
-            <div className="aim-away-line">
-              <span className="aim-away-dot">●</span>
-              <strong>sk8r_aryaan</strong>&nbsp;is&nbsp;<em>away</em>.
-            </div>
-            <div className="aim-auto-response">
-              Auto Response: "grindin rails + code. back l8r ✌"
-            </div>
-            <div className="aim-timestamp">3:47 PM</div>
-          </div>
-          <div className="aim-input-mock-row">
-            <div className="aim-input-mock" />
-          </div>
-          <div className="aim-button-row">
-            <button className="aim-btn">Send</button>
-            <button className="aim-btn">Warn</button>
-            <button className="aim-btn" onClick={() => setAimOpen(false)}>Close</button>
-          </div>
-        </div>
-      )}
 
       {/* ── THPS trick popup ── */}
       {trick && (
