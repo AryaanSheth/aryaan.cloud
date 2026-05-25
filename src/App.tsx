@@ -5,7 +5,7 @@ export function App() {
     <div className="page">
       <aside className="toc" aria-label="Table of contents">
         <p className="toc__brand">Aryaan Sheth</p>
-        <span className="toc__role">Cloud &amp; Backend Developer · Waterloo</span>
+        <span className="toc__role">AI &amp; Backend Engineer · Waterloo</span>
         <nav>
           <ul className="toc__list">
             <li><a href="#index"><span className="num">00</span><span>Index</span></a></li>
@@ -28,14 +28,14 @@ export function App() {
           <h1 className="section__head section__head--lede">A small, scannable index of who I am and what I do.</h1>
           <div className="section__body">
             <p>
-              I'm <strong>Aryaan Sheth</strong>, a Cloud &amp; Backend Developer building
-              scalable systems and developer tooling. Currently finishing my degree at Waterloo
-              while on a cloud engineering co-op at Sun Life.
+              I'm <strong>Aryaan Sheth</strong>, an AI &amp; Backend Engineer building
+              reliable systems at the intersection of LLM infrastructure and cloud engineering.
+              Currently finishing my degree at McMaster while working at Friedmann AI.
             </p>
             <p>
-              I work closest to the infrastructure layer — AWS, distributed systems, developer
-              tooling. My open source work leans pragmatic: libraries that solve real friction,
-              written in whatever language fits the problem.
+              My work spans AI pipelines, cloud infrastructure, and developer tooling — from
+              LLM security and performance to AWS at enterprise scale. My open source work leans
+              pragmatic: libraries that solve real friction, written in whatever language fits the problem.
             </p>
             <p>Five sections. Read what's relevant.</p>
           </div>
@@ -43,12 +43,15 @@ export function App() {
 
         <section className="section" id="now">
           <p className="section__num">01 · Now</p>
-          <h2 className="section__head">Cloud engineering at Sun Life, wrapping up my degree.</h2>
+          <h2 className="section__head">AI engineering at Friedmann AI, wrapping up my degree.</h2>
           <div className="section__body">
             <p>
-              My second term at Sun Life as a Cloud Engineer &amp; DevOps engineer. Day-to-day is
-              AWS observability and <strong>Ansible automation</strong> — making cloud
-              infrastructure easier to manage at scale across the enterprise.
+              Currently a <strong>Software Engineering Intern at FriedmannAI</strong> in Oakville,
+              focused on LLM security and performance for their flagship product. Work so far:
+              a hardened system prompt that near-eliminated jailbreaks; an LLM pipeline for detecting
+              financial profile discrepancies; <strong>LLM evals</strong> to track and quantitatively
+              improve model performance; and an image templating engine for consistent
+              LLM-generated client outputs.
             </p>
             <p>
               Outside of work I'm actively maintaining <strong>PromptLint</strong>, a static
@@ -57,7 +60,7 @@ export function App() {
               reduce unnecessary token spend.
             </p>
             <p>
-              Open to full-time backend or cloud engineering roles starting late 2025.
+              Open to full-time AI or backend engineering roles starting 2027.
               If something looks interesting, reach out.
             </p>
           </div>
@@ -73,24 +76,29 @@ export function App() {
               </thead>
               <tbody>
                 <tr>
-                  <td>2025 (2 terms)</td>
-                  <td>Sun Life</td>
-                  <td>Cloud Engineer &amp; DevOps · AWS monitoring, Ansible automation for enterprise infrastructure</td>
+                  <td>2026 – Present</td>
+                  <td>FriedmannAI</td>
+                  <td>Software Engineer Intern · LLM security &amp; performance — jailbreak mitigation, financial discrepancy detection, LLM evals pipeline, image templating engine</td>
+                </tr>
+                <tr>
+                  <td>2025 (May – Aug)</td>
+                  <td>Sun Life Financial</td>
+                  <td>DevOps Engineer Intern · OPA/Rego policy pipeline for IaC security, self-healing multi-AZ CloudFormation playbooks</td>
+                </tr>
+                <tr>
+                  <td>2025 (Jan – Apr)</td>
+                  <td>Sun Life Financial</td>
+                  <td>Cloud Engineer Intern · event-driven AWS monitoring pipeline for 50+ services, cost automation dashboards</td>
                 </tr>
                 <tr>
                   <td>2024</td>
                   <td>Sensor Technology</td>
-                  <td>Software Engineer Intern · embedded software for industrial IoT devices</td>
+                  <td>Software Engineer Intern · safety-critical C# TCP/IP layer, Go REST API for industrial IoT hardware</td>
                 </tr>
                 <tr>
                   <td>2023</td>
                   <td>ISED Canada</td>
-                  <td>Software Engineer Intern · AWS database migration, backend for federal systems</td>
-                </tr>
-                <tr>
-                  <td>2022</td>
-                  <td>CollegeSouk</td>
-                  <td>Software Engineer · full stack development for a student marketplace</td>
+                  <td>Software Engineer Intern · zero-downtime AWS RDS migration, backend for federal bilingual systems</td>
                 </tr>
               </tbody>
             </table>
