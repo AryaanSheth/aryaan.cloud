@@ -190,7 +190,8 @@ body {
   font-family: var(--font-mono);
   color: var(--color-ink-soft);
   font-size: 0.8125rem;
-  width: 10ch;
+  width: 12ch;
+  white-space: nowrap;
 }
 
 .years td:nth-child(2) {
