@@ -1,13 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
-  <!-- Ghost body -->
-  <path d="M2,16 L2,8 C2,4 4,2 8,2 C12,2 14,4 14,8 L14,16
-           Q12.5,13.5 11,16 Q9.5,13.5 8,16
-           Q6.5,13.5  5,16 Q3.5,13.5  2,16 Z"
-        fill="#FF6188"/>
-  <!-- Eyes white -->
-  <ellipse cx="5.5" cy="8"   rx="2"   ry="2.5" fill="white"/>
-  <ellipse cx="10.5" cy="8"  rx="2"   ry="2.5" fill="white"/>
-  <!-- Pupils -->
-  <circle cx="6.2"  cy="8.5" r="1.2" fill="#1a1aff"/>
-  <circle cx="11.2" cy="8.5" r="1.2" fill="#1a1aff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="6" fill="#0f0f0f"/>
+  <line x1="16" y1="6" x2="7"  y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="16" y1="6" x2="25" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="10.5" y1="19" x2="21.5" y2="19" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
 </svg>
