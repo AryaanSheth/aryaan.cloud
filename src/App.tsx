@@ -47,9 +47,11 @@ export function App() {
           <div className="section__body">
             <p>
               Currently a <strong>Software Engineering Intern at FriedmannAI</strong> in Oakville,
-              focused on LLM security and performance for their flagship product. Day-to-day involves
-              building AI pipelines with per-user caching, race-condition-safe job deduplication,
-              and hardened LLM output parsing with allowlist validation.
+              focused on LLM security and performance for their flagship product. Work so far:
+              a hardened system prompt that near-eliminated jailbreaks; an LLM pipeline for detecting
+              financial profile discrepancies; <strong>LLM evals</strong> to track and quantitatively
+              improve model performance; and an image templating engine for consistent
+              LLM-generated client outputs.
             </p>
             <p>
               Outside of work I'm actively maintaining <strong>PromptLint</strong>, a static
@@ -76,7 +78,7 @@ export function App() {
                 <tr>
                   <td>2026 – Present</td>
                   <td>FriedmannAI</td>
-                  <td>Software Engineer Intern · LLM security &amp; performance — AI pipelines with per-user caching, job deduplication, and hardened output parsing</td>
+                  <td>Software Engineer Intern · LLM security &amp; performance — jailbreak mitigation, financial discrepancy detection, LLM evals pipeline, image templating engine</td>
                 </tr>
                 <tr>
                   <td>2025 (May – Aug)</td>
