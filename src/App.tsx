@@ -110,13 +110,23 @@ export function App() {
               <li>
                 <div className="proj__head">
                   <a href="https://promptlint.dev" target="_blank" rel="noopener noreferrer">PromptLint</a>
-                  <span className="proj__stat">2000+ downloads</span>
+                  <span className="proj__stat">2500+ downloads</span>
                 </div>
                 <span className="proj__sub">ESLint for LLM prompts. Static analysis that reduces costs and improves reliability across your prompt library.</span>
                 <span className="proj__meta">TypeScript · Python · CI/CD · LLM</span>
                 <div className="proj__links">
                   <a href="https://promptlint.dev" target="_blank" rel="noopener noreferrer">↗ Live</a>
                   <a href="https://github.com/AryaanSheth/promptlint" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+              </li>
+              <li>
+                <div className="proj__head">
+                  <a href="https://github.com/AryaanSheth/flowy" target="_blank" rel="noopener noreferrer">Flowy</a>
+                </div>
+                <span className="proj__sub">Local-first voice dictation tool built for speed. Transcribe instantly without the cloud.</span>
+                <span className="proj__meta">Rust · Local-First · Voice</span>
+                <div className="proj__links">
+                  <a href="https://github.com/AryaanSheth/flowy" target="_blank" rel="noopener noreferrer">GitHub</a>
                 </div>
               </li>
               <li>
