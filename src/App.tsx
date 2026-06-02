@@ -123,8 +123,8 @@ export function App() {
                 <div className="proj__head">
                   <a href="https://github.com/AryaanSheth/flowy" target="_blank" rel="noopener noreferrer">Flowy</a>
                 </div>
-                <span className="proj__sub">Local-first voice dictation tool built for speed. Transcribe instantly without the cloud.</span>
-                <span className="proj__meta">Rust · Local-First · Voice</span>
+                <span className="proj__sub">Hold a hotkey. Speak. Release. Local push-to-talk dictation powered by Apple Neural — no cloud, no account, no warm-up. Under 2 MB, zero CPU when idle.</span>
+                <span className="proj__meta">Swift · macOS · Local-First · Apple Silicon</span>
                 <div className="proj__links">
                   <a href="https://github.com/AryaanSheth/flowy" target="_blank" rel="noopener noreferrer">GitHub</a>
                 </div>
