@@ -32,8 +32,29 @@ export function App() {
 
   useEffect(() => {
     const onHash = () => {
-      setView(hashToView(window.location.hash));
-      window.scrollTo(0, 0);
+      const next = hashToView(window.location.hash);
+      setView(prev => {
+        const viewChanged =
+          prev.kind !== next.kind ||
+          (next.kind === "post" && prev.kind === "post" && next.slug !== prev.slug);
+        if (viewChanged) {
+          if (next.kind === "post") {
+            window.scrollTo(0, 0);
+          } else {
+            const hash = window.location.hash;
+            requestAnimationFrame(() => {
+              if (hash && hash !== "#") {
+                const el = document.querySelector(hash);
+                if (el) el.scrollIntoView();
+                else window.scrollTo(0, 0);
+              } else {
+                window.scrollTo(0, 0);
+              }
+            });
+          }
+        }
+        return next;
+      });
     };
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
