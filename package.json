@@ -4,17 +4,22 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun --hot src/index.ts",
+    "blogs": "bun scripts/generate-blogs.ts",
+    "dev": "bun run blogs && bun --hot src/index.ts",
     "start": "NODE_ENV=production bun src/index.ts",
-    "build": "bun run build.ts"
+    "build": "bun run blogs && bun run build.ts"
   },
   "dependencies": {
     "bun-plugin-tailwind": "^0.1.2",
+    "highlight.js": "^11.11.1",
+    "marked": "^18.0.5",
+    "marked-highlight": "^2.2.4",
     "react": "^19",
     "react-dom": "^19"
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/marked": "^6.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tailwindcss": "^4.1.11"
