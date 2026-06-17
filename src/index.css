@@ -410,17 +410,30 @@ body {
 .blog-post__body p { margin: 0 0 var(--space-md); }
 .blog-post__body p:last-child { margin-block-end: 0; }
 
+.blog-post__body h2,
+.blog-post__body h3,
 .blog-post__body h4,
 .blog-post__body h5 {
   font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   margin: var(--space-xl) 0 var(--space-sm);
   color: var(--color-ink);
+  line-height: 1.25;
 }
 
-.blog-post__body h4 { font-size: 1.25rem; }
-.blog-post__body h5 { font-size: 1rem; }
+.blog-post__body h2 { font-size: 1.625rem; }
+.blog-post__body h3 { font-size: 1.375rem; }
+.blog-post__body h4 { font-size: 1.125rem; }
+.blog-post__body h5 {
+  font-size: 0.8125rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  margin-block-start: var(--space-lg);
+}
 
 .blog-post__body a {
   color: var(--color-accent);
@@ -434,28 +447,33 @@ body {
 .blog-post__body code {
   font-family: var(--font-mono);
   font-size: 0.875em;
-  background: oklch(96% 0.004 245);
-  padding: 0.1em 0.35em;
+  background: oklch(96% 0.015 248);
+  padding: 0.12em 0.4em;
   border-radius: 3px;
-  color: var(--color-ink);
+  color: var(--color-accent);
+  border: 1px solid oklch(92% 0.012 248);
 }
 
 .blog-post__body pre {
-  background: oklch(14% 0.01 245);
-  color: oklch(90% 0.005 245);
-  border-radius: 4px;
+  background: oklch(20% 0.02 245);
+  border: 1px solid oklch(28% 0.02 245);
+  border-radius: 6px;
   padding: var(--space-md);
   overflow-x: auto;
   margin: var(--space-md) 0;
-  font-size: 0.875rem;
-  line-height: 1.6;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  position: relative;
 }
 
-.blog-post__body pre code {
+.blog-post__body pre code,
+.blog-post__body pre code.hljs {
   background: none;
+  border: none;
   padding: 0;
-  color: inherit;
+  color: oklch(90% 0.005 245);
   font-size: inherit;
+  display: block;
 }
 
 .blog-post__body ul,
@@ -466,7 +484,23 @@ body {
 
 .blog-post__body li { margin-block-end: var(--space-2xs); }
 
-.blog-post__body strong { color: var(--color-accent); font-weight: 500; }
+.blog-post__body li::marker { color: var(--color-ink-muted); }
+
+.blog-post__body strong { color: var(--color-accent); font-weight: 600; }
+
+.blog-post__body blockquote {
+  margin: var(--space-md) 0;
+  padding: var(--space-2xs) var(--space-md);
+  border-inline-start: 3px solid var(--color-accent);
+  color: var(--color-ink-soft);
+  font-style: italic;
+}
+
+.blog-post__body hr {
+  border: none;
+  border-block-start: 1px solid var(--color-rule);
+  margin: var(--space-xl) 0;
+}
 
 /* ─── Responsive ─────────────────────────────────── */
 

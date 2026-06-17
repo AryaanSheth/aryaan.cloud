@@ -1,7 +1,21 @@
 import { useEffect, useState } from "react";
-import { marked } from "marked";
+import { Marked } from "marked";
+import { markedHighlight } from "marked-highlight";
+import hljs from "highlight.js/lib/common";
+import "highlight.js/styles/atom-one-dark.css";
 import "./index.css";
 import { posts } from "./blogs-data";
+
+const marked = new Marked(
+  markedHighlight({
+    emptyLangClass: "hljs",
+    langPrefix: "hljs language-",
+    highlight(code, lang) {
+      const language = hljs.getLanguage(lang) ? lang : "plaintext";
+      return hljs.highlight(code, { language }).value;
+    },
+  }),
+);
 
 type View = { kind: "portfolio" } | { kind: "post"; slug: string };
 
