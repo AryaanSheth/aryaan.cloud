@@ -1,39 +1,28 @@
 import { serve } from "bun";
 import index from "./index.html";
+import { listBlogs, getBlog } from "./blog-utils";
 
 const server = serve({
   routes: {
-    // Serve index.html for all unmatched routes.
     "/*": index,
 
-    "/api/hello": {
-      async GET(req) {
-        return Response.json({
-          message: "Hello, world!",
-          method: "GET",
-        });
-      },
-      async PUT(req) {
-        return Response.json({
-          message: "Hello, world!",
-          method: "PUT",
-        });
+    "/api/blogs": {
+      async GET() {
+        return Response.json(listBlogs());
       },
     },
 
-    "/api/hello/:name": async req => {
-      const name = req.params.name;
-      return Response.json({
-        message: `Hello, ${name}!`,
-      });
+    "/api/blogs/:slug": {
+      async GET(req) {
+        const post = getBlog(req.params.slug);
+        if (!post) return new Response("Not found", { status: 404 });
+        return Response.json(post);
+      },
     },
   },
 
   development: process.env.NODE_ENV !== "production" && {
-    // Enable browser hot reloading in development
     hmr: true,
-
-    // Echo console logs from the browser to the server
     console: true,
   },
 });
