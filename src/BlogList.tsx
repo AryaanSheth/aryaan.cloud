@@ -8,7 +8,7 @@ interface Props {
 export function BlogList({ posts, onSelect }: Props) {
   return (
     <section className="section" id="blog">
-      <p className="section__num">05 · Blog</p>
+      <p className="section__num">04 · Blog</p>
       <h2 className="section__head">Writing on things I build and learn.</h2>
       <div className="section__body">
         {posts.length === 0 ? (

@@ -36,6 +36,7 @@ export function App() {
   }
 
   const showBlog = view.kind !== "portfolio";
+  const recentPosts = posts.slice(0, 3);
 
   return (
     <div className="page">
@@ -48,16 +49,16 @@ export function App() {
             <li><a href="#now" onClick={() => navTo("#now")}><span className="num">01</span><span>Now</span></a></li>
             <li><a href="#experience" onClick={() => navTo("#experience")}><span className="num">02</span><span>Experience</span></a></li>
             <li><a href="#projects" onClick={() => navTo("#projects")}><span className="num">03</span><span>Projects</span></a></li>
-            <li><a href="#reach" onClick={() => navTo("#reach")}><span className="num">04</span><span>Reach</span></a></li>
             <li>
               <a
                 href="#blog"
                 onClick={e => { e.preventDefault(); navTo("#blog"); }}
                 className={showBlog ? "toc__link--active" : ""}
               >
-                <span className="num">05</span><span>Blog</span>
+                <span className="num">04</span><span>Blog</span>
               </a>
             </li>
+            <li><a href="#reach" onClick={() => navTo("#reach")}><span className="num">05</span><span>Reach</span></a></li>
           </ul>
         </nav>
         <div className="toc__meta">
@@ -213,8 +214,50 @@ export function App() {
               </div>
             </section>
 
+            <section className="section" id="blog">
+              <p className="section__num">04 · Blog</p>
+              <h2 className="section__head">Writing on things I build and learn.</h2>
+              <div className="section__body">
+                {recentPosts.length > 0 ? (
+                  <>
+                    <ul className="blog-list">
+                      {recentPosts.map(post => (
+                        <li key={post.slug} className="blog-list__item">
+                          <button
+                            className="blog-list__title"
+                            onClick={() => navTo(`#blog/${post.slug}`)}
+                          >
+                            {post.title}
+                          </button>
+                          <div className="blog-list__meta">
+                            <span className="blog-list__date">
+                              {new Date(post.date).toLocaleDateString("en-CA", {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                              })}
+                            </span>
+                            <span className="blog-list__tags">
+                              {post.tags.map(t => (
+                                <span key={t} className="blog-list__tag">{t}</span>
+                              ))}
+                            </span>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                    <button className="blog-all" onClick={() => navTo("#blog")}>
+                      All posts →
+                    </button>
+                  </>
+                ) : (
+                  <p>No posts yet.</p>
+                )}
+              </div>
+            </section>
+
             <section className="section" id="reach">
-              <p className="section__num">04 · Reach</p>
+              <p className="section__num">05 · Reach</p>
               <h2 className="section__head">Email works best, or LinkedIn if you prefer.</h2>
               <div className="section__body">
                 <div className="contact">

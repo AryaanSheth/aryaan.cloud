@@ -26,7 +26,7 @@ export function BlogPost({ slug, onBack }: Props) {
   if (error) return (
     <section className="section">
       <button className="blog-back" onClick={onBack}>← Back</button>
-      <p className="section__num">05 · Blog</p>
+      <p className="section__num">04 · Blog</p>
       <p>Post not found.</p>
     </section>
   );
@@ -34,7 +34,7 @@ export function BlogPost({ slug, onBack }: Props) {
   if (!post) return (
     <section className="section">
       <button className="blog-back" onClick={onBack}>← Back</button>
-      <p className="section__num">05 · Blog</p>
+      <p className="section__num">04 · Blog</p>
       <p className="blog-loading">Loading…</p>
     </section>
   );
@@ -44,7 +44,7 @@ export function BlogPost({ slug, onBack }: Props) {
   return (
     <section className="section" id="blog">
       <button className="blog-back" onClick={onBack}>← All posts</button>
-      <p className="section__num">05 · Blog</p>
+      <p className="section__num">04 · Blog</p>
       <h1 className="section__head">{post.title}</h1>
       <div className="blog-post__meta">
         <span className="blog-post__date">
