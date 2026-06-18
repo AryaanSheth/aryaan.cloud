@@ -259,9 +259,12 @@ export function App() {
                           <span className="blog-card__date">{formatDate(post.date)}</span>
                           <span className="blog-card__title">{post.title}</span>
                           <span className="blog-card__tags">
-                            {post.tags.map(t => (
+                            {post.tags.slice(0, 2).map(t => (
                               <span key={t} className="blog-card__tag">{t}</span>
                             ))}
+                            {post.tags.length > 2 && (
+                              <span className="blog-card__tag blog-card__tag--more">+{post.tags.length - 2}</span>
+                            )}
                           </span>
                         </a>
                       </li>

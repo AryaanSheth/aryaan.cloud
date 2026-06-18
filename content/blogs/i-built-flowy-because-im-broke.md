@@ -1,7 +1,7 @@
 +++
 date = '2026-06-18T00:00:00-05:00'
 draft = false
-title = 'I built Flowy because I\'m broke'
+title = "I built Flowy because I'm broke"
 tags = ["swift", "macos", "local-first", "flowy"]
 +++
 
