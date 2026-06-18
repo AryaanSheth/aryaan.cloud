@@ -10,8 +10,10 @@ function parseFrontmatter(raw: string) {
   if (!match) return { meta: { title: "", date: "", tags: [] as string[], draft: false }, content: raw };
   const toml = match[1];
   const content = match[2].trim();
-  const title = toml.match(/^title\s*=\s*['"](.+?)['"]/m)?.[1] ?? "";
-  const date = toml.match(/^date\s*=\s*['"](.+?)['"]/m)?.[1] ?? "";
+  const titleMatch = toml.match(/^title\s*=\s*(?:"([^"]+)"|'([^']+)')/m);
+  const title = titleMatch ? (titleMatch[1] ?? titleMatch[2] ?? "") : "";
+  const dateMatch = toml.match(/^date\s*=\s*(?:"([^"]+)"|'([^']+)')/m);
+  const date = dateMatch ? (dateMatch[1] ?? dateMatch[2] ?? "") : "";
   const draft = toml.match(/^draft\s*=\s*(true|false)/m)?.[1] === "true";
   const tagsMatch = toml.match(/^tags\s*=\s*\[([^\]]*)\]/m);
   const tags = tagsMatch
