@@ -360,8 +360,9 @@ body {
 .blog-card__tags {
   display: flex;
   gap: var(--space-2xs);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin-block-start: var(--space-2xs);
+  overflow: hidden;
 }
 
 .blog-card__tag {
