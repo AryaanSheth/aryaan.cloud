@@ -11,7 +11,7 @@ export interface BlogPost {
 export const posts: BlogPost[] = [
   {
     "slug": "i-built-flowy-because-im-broke",
-    "title": "I built Flowy because I\\",
+    "title": "I built Flowy because I",
     "date": "2026-06-18T00:00:00-05:00",
     "tags": [
       "swift",
